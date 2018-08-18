@@ -1,6 +1,6 @@
+import childProcess = require("child_process");
 import fs = require("fs");
 import path = require("path");
-import childProcess = require("child_process");
 
 type DependencyArg = string | IDependency;
 
@@ -39,8 +39,8 @@ async function link(projDir: string, config: IConfig) {
       4. If so (3), do a build
       5. If so (3), npm link
     */
-    const result = childProcess.execSync("echo 10 | basho x+x");
-    console.log("RRR", result);
+    const result = childProcess.execSync(linkScript);
+    console.log("RRR", result.toString());
   }
 }
 
@@ -54,8 +54,8 @@ async function readConfig(projDir: string): Promise<IConfig> {
     localDependencies: (configFromFile.localDependencies || []).map(
       dep =>
         typeof dep === "string"
-          ? { name: dep, location: path.join(projDir, `../${dep}`) }
-          : { name: dep.name, location: path.join(projDir, `../${dep}`) }
+          ? { name: dep, location: path.resolve(projDir, `../${dep}`) }
+          : { name: dep.name, location: path.resolve(projDir, `../${dep}`) }
     )
   };
 }
@@ -84,10 +84,12 @@ async function ensurePrequisites() {
 
 async function main() {
   await ensurePrequisites();
+  const cwd = argv.config
+    ? path.resolve(process.cwd(), argv.config)
+    : process.cwd();
   const cmd = process.argv[2];
   if (cmd === "link") {
-    const cwd = process.cwd();
-    const config = await readConfig(argv.config || cwd);
+    const config = await readConfig(cwd);
     link(cwd, config);
   } else {
     console.log(helpText(cmd));
