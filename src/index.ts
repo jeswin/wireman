@@ -20,7 +20,7 @@ async function main() {
     if (cmd === "link") {
       const config = await readConfig(cwd);
       if (config) {
-        link(cwd, config, { alreadyBuilt: [] });
+        link(cwd, config, { alreadyBuilt: [], argv });
       } else {
         console.log(`Missing wireman.json in ${cwd}.`);
       }

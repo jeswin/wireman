@@ -9,6 +9,7 @@ import { IConfig } from "./types";
 
 export interface ILinkingContext {
   alreadyBuilt: string[];
+  argv: any;
 }
 
 export default async function link(
@@ -34,9 +35,9 @@ export default async function link(
   */
   console.log(`Building ${projDir}...`);
   for (const dep of config.localDependencies) {
-    console.log(`Linking ${dep.name} (${dep.location})`);
+    console.log(`Linking to ${dep.name} from ${config.name}...`);
     try {
-      childProcess.execSync(`npm link ${dep.name}`);
+      childProcess.execSync(`cd "${projDir}" && yarn link ${dep.name}`);
     } catch (ex) {
       printErrorsAndExit(ex, config.name);
     }
@@ -45,7 +46,9 @@ export default async function link(
   try {
     const linkScript = path.join(__dirname, `link-${getOS()}.sh`);
     const result = childProcess.execSync(
-      `${linkScript} "${projDir}" "${config.build}"`
+      `${linkScript} "${projDir}" "${config.build}" "${
+        context.argv.force ? "buildalways" : "buildifnew"
+      }"`
     );
     console.log(result.toString());
   } catch (ex) {

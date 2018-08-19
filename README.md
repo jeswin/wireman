@@ -4,7 +4,8 @@ Build tools for node.js multi-module projects - without having to deploy them to
 
 # Installation
 
-Install basho first. It's a required dependency for now.
+Install yarn and basho first. These are required dependencies for now.
+We need yarn because npm has long standing bugs - someone tell them.
 
 ```bash
 npm i -g basho
@@ -47,4 +48,10 @@ wireman link
 
 # or otherwise
 wireman link --config /path/to/project
+```
+
+To force a rebuild of all local dependencies (irrespective of whether changed or not):
+
+```bash
+wireman link --force
 ```

@@ -9,4 +9,12 @@ export default async function ensurePrerequisites() {
     console.log("See https://github.com/jeswin/basho");
     process.exit();
   }
+
+  // See if yarn exists.
+  try {
+    const result = childProcess.execSync("yarn -v");
+  } catch (ex) {
+    console.log("Install yarn first with 'npm i -g yarn'.");
+    process.exit();
+  }
 }
