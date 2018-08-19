@@ -4,9 +4,10 @@ set -e
 projdir=$1
 buildcmd=$2
 mustbuild=$3
+mustlink=$4
 
-if [[ -z "$projdir" || -z "$buildcmd" || -z "$mustbuild" ]]; then
-  echo Invalid args. Pass the projectdir, buildcmd and mustbuild as params to this script.
+if [[ -z "$projdir" || -z "$buildcmd" || -z "$mustbuild" || -z "$mustlink" ]]; then
+  echo Invalid args. Pass the projectdir, buildcmd, mustbuild and mustlink as params to this script.
 fi
 
 cd "$projdir"
@@ -16,7 +17,9 @@ tar --mtime='1970-01-01' --exclude='./node_modules' --exclude='./.git' --exclude
 build_app () {
   projmd5=$1
   $buildcmd
-  yarn link
+  if [[ "$mustlink" == "link" ]]; then
+    yarn link
+  fi
   echo projmd5 > wireman.md5
 }
 

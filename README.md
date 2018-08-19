@@ -2,7 +2,7 @@
 
 Build tools for node.js multi-module projects - without having to deploy them to npm for every little change you make. For instance, if you have a project A which depends on B which depends on C, you can use wireman to automatically build (and npm link) project C and project B while building project A.
 
-# Installation
+## Installation
 
 Install yarn and basho first. These are required dependencies for now.
 We need yarn because npm has long standing bugs - someone tell them.
@@ -18,7 +18,7 @@ Then install wireman
 npm i -g wireman
 ```
 
-# Usage
+## Usage
 
 Create a file called 'wireman.json' in the project's root directory, containing:
 
@@ -56,3 +56,14 @@ To force a rebuild of all local dependencies (irrespective of whether changed or
 ```bash
 wireman link --force
 ```
+
+Linking does not build the main project. You could do that manually, or use the build command. The build command builds and links all the local dependencies and finally builds the main project as well.
+
+```bash
+wireman build
+```
+
+## Help needed
+
+1. Unit tests
+2. OSX support

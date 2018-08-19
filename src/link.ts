@@ -15,12 +15,14 @@ export interface ILinkingContext {
 export default async function link(
   projDir: string,
   config: IConfig,
+  build: boolean,
+  isMainProject: boolean,
   context: ILinkingContext
 ) {
   for (const dep of config.localDependencies) {
     const depConfig = await readConfig(dep.location);
     if (depConfig && !context.alreadyBuilt.includes(dep.location)) {
-      await link(dep.location, depConfig, context);
+      await link(dep.location, depConfig, true, false, context);
       context.alreadyBuilt.push(dep.location);
     }
   }
@@ -43,15 +45,19 @@ export default async function link(
     }
   }
 
-  try {
-    const linkScript = path.join(__dirname, `link-${getOS()}.sh`);
-    const result = childProcess.execSync(
-      `${linkScript} "${projDir}" "${config.build}" "${
-        context.argv.force ? "buildalways" : "buildifnew"
-      }"`
-    );
-    console.log(result.toString());
-  } catch (ex) {
-    printErrorsAndExit(ex, config.name);
+  if (!build) {
+    console.log(`Completed linking local dependencies for ${config.name}.`);
+  } else {
+    try {
+      const linkScript = path.join(__dirname, `link-${getOS()}.sh`);
+      const result = childProcess.execSync(
+        `${linkScript} "${projDir}" "${config.build}" ${
+          context.argv.force ? "buildalways" : "buildifnew"
+        } ${isMainProject ? "nolink" : "link"}`
+      );
+      console.log(result.toString());
+    } catch (ex) {
+      printErrorsAndExit(ex, config.name);
+    }
   }
 }

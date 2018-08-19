@@ -19,10 +19,10 @@ async function main() {
       ? path.resolve(process.cwd(), argv.config)
       : process.cwd();
     const cmd = process.argv[2];
-    if (cmd === "link") {
+    if (cmd === "link" || cmd === "build") {
       const config = await readConfig(cwd);
       if (config) {
-        link(cwd, config, { alreadyBuilt: [], argv });
+        link(cwd, config, cmd === "build", true, { alreadyBuilt: [], argv });
       } else {
         console.log(`Missing wireman.json in ${cwd}.`);
       }
