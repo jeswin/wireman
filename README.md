@@ -37,7 +37,7 @@ Here's an example wireman.json
 }
 ```
 
-Similarly, if the project "some-dep" has other local dependencies, create a wireman.json for that as well.
+Similarly, if the project "some-dep" has its own local dependencies, create a wireman.json in "some-dep" as well.
 
 Once you're done defining wireman config files for all your projects, do this every time you change a project. It will build and link all your projects which have changes since the last time it was run.
 
