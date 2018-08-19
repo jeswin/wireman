@@ -42,5 +42,9 @@ Similarly, if the project "some-dep" has other local dependencies, create a wire
 Once you're done defining wireman config files for all your projects, do this every time you change a project. It will build and link all your projects which have changes since the last time it was run.
 
 ```bash
+# cd into your project directory
 wireman link
+
+# or otherwise
+wireman link --config /path/to/project
 ```
