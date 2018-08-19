@@ -1,16 +1,12 @@
 {
   "name": "wireman",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "author": "Jeswin Kumar<jeswinpk@agilehead.com>",
   "bin": {
     "wireman": "dist/index.js"
   },
-  "main": "dist/index",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "scripts": {
-    "start": "./build.sh && node dist/index",
-    "test": "./build.sh && mocha dist/test/test.js"
-  },
   "license": "AGPL-1.0",
   "dependencies": {
     "@types/node": "^10.5.2"

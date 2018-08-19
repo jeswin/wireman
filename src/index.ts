@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import path = require("path");
 
 import ensurePrerequisites from "./ensurePrerequisites";
