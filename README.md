@@ -1,6 +1,8 @@
 # wireman
 
-Build tools for node.js multi-module projects - without having to deploy them to npm for every little change you make. For instance, if you have a project A which depends on B which depends on C, you can use wireman to automatically build (and npm link) project C and project B while building project A.
+Build tools for node.js multi-package projects - without having to deploy them to npm for every little change you make. For instance, if you have a project A which depends on B which depends on C, you can use wireman to automatically build project C and project B while building project A.
+
+For all projects, wireman will fetch all deps from npm (according to package.json), run a build command and npm link it into the global node_modules directory. 
 
 ## Installation
 

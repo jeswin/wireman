@@ -16,6 +16,7 @@ tar --mtime='1970-01-01' --exclude='./node_modules' --exclude='./.git' --exclude
 
 build_app () {
   projmd5=$1
+  yarn
   $buildcmd
   if [[ "$mustlink" == "link" ]]; then
     yarn link
