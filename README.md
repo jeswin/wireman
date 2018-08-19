@@ -8,6 +8,7 @@ Install yarn and basho first. These are required dependencies for now.
 We need yarn because npm has long standing bugs - someone tell them.
 
 ```bash
+npm i -g yarn
 npm i -g basho
 ```
 
