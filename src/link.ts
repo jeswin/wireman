@@ -19,7 +19,10 @@ export default async function link(
   isMainProject: boolean,
   context: ILinkingContext
 ) {
-  for (const dep of config.localDependencies) {
+  const allDeps = (config.localDependencies || []).concat(
+    config.localDevDependencies || []
+  );
+  for (const dep of allDeps) {
     const depConfig = await readConfig(dep.location);
     if (depConfig && !context.alreadyBuilt.includes(dep.location)) {
       await link(dep.location, depConfig, true, false, context);
@@ -36,7 +39,7 @@ export default async function link(
     5. If so (3), npm link
   */
   console.log(`Building ${projDir}...`);
-  for (const dep of config.localDependencies) {
+  for (const dep of allDeps) {
     console.log(`Linking to ${dep.name} from ${config.name}...`);
     try {
       childProcess.execSync(`cd "${projDir}" && yarn link ${dep.name}`);
