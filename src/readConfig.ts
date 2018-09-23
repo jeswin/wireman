@@ -32,18 +32,18 @@ export default async function readConfig(
   }
 
   const configPath = path.join(projDir, "wireman.json");
-  if (fs.existsSync(configPath)) {
-    const configFromFile: IConfigArg = require(configPath);
-    const packageJson = require(path.join(projDir, "package.json"));
-    return {
-      build: configFromFile.build,
-      localDependencies: (configFromFile.localDependencies || []).map(
-        toDependencyObject
-      ),
-      localDevDependencies: (configFromFile.localDevDependencies || []).map(
-        toDependencyObject
-      ),
-      name: packageJson.name
-    };
-  }
+  const configFromFile: IConfigArg = fs.existsSync(configPath)
+    ? require(configPath)
+    : { build: "./build.sh" };
+  const packageJson = require(path.join(projDir, "package.json"));
+  return {
+    build: configFromFile.build,
+    localDependencies: (configFromFile.localDependencies || []).map(
+      toDependencyObject
+    ),
+    localDevDependencies: (configFromFile.localDevDependencies || []).map(
+      toDependencyObject
+    ),
+    name: packageJson.name
+  };
 }
