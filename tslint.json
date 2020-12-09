@@ -12,7 +12,8 @@
     "max-classes-per-file": false,
     "max-line-length": false,
     "no-bitwise": false,
-    "no-var-requires": false
+    "no-var-requires": false,
+    "no-console": false
   },
   "rulesDirectory": []
 }

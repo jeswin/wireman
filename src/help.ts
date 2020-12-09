@@ -1,4 +1,4 @@
-export default function(arg: string) {
+export default function (arg: string) {
   return `
   ${arg ? `Unknown option '${arg}'` : `Unknown option`}. Valid options are:
   wireman link
@@ -11,3 +11,4 @@ export default function(arg: string) {
     Remove local dependencies from package.json
 `.trim();
 }
+
